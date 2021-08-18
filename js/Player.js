@@ -6,7 +6,7 @@ Player = function (game, canvas) {
   this.game = game;
 
   // La vitesse de course du joueur
-  this.speed = 1;
+  this.speed = 0.5;
 
   // La vitesse de mouvement
   this.angularSensibility = 200;
@@ -17,17 +17,17 @@ Player = function (game, canvas) {
   window.addEventListener(
     "keyup",
     function (evt) {
-      switch (evt.keyCode) {
-        case 90:
+      switch (evt.key) {
+        case "z":
           _this.camera.axisMovement[0] = false;
           break;
-        case 83:
+        case "s":
           _this.camera.axisMovement[1] = false;
           break;
-        case 81:
+        case "q":
           _this.camera.axisMovement[2] = false;
           break;
-        case 68:
+        case "d":
           _this.camera.axisMovement[3] = false;
           break;
       }
@@ -39,17 +39,17 @@ Player = function (game, canvas) {
   window.addEventListener(
     "keydown",
     function (evt) {
-      switch (evt.keyCode) {
-        case 90:
+      switch (evt.key) {
+        case "z":
           _this.camera.axisMovement[0] = true;
           break;
-        case 83:
+        case "s":
           _this.camera.axisMovement[1] = true;
           break;
-        case 81:
+        case "q":
           _this.camera.axisMovement[2] = true;
           break;
-        case 68:
+        case "d":
           _this.camera.axisMovement[3] = true;
           break;
       }
