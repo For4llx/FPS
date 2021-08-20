@@ -82,4 +82,88 @@ Arena = function (game) {
       }
     }
   }
+  //Les textes à afficher
+  let textArray = [
+    `Oh Bonjour, je m'attendais pas à voir quelqu'un ici !`,
+    `Je me présente moi c'est Roméo et je suis développeur web junior !`,
+    `Je maitrise aussi bien le backend avec Node.js et SQL que le front avec HTML, CSS, SASS et Vuejs`,
+    `Et... comme vous pouvez le voir... en ce moment j'apprends aussi à faire de la 3D pour le web`,
+    `Et cette endroit vous dites ? C'est un projet que j'aimerais terminer ! si j'ai le temps`,
+    `Qu'est ce que je fais en ce moment ? je suis en pleine recherche d'emploi ! Dans Paris et sa périphérie`,
+    `Un poste de FrontEnd serait l'idéal car c'est ma vocation, mais je suis aussi ouvert à faire un peu de BackEnd`,
+    `Alors si vous êtes un recruteur qui passerait par là... faite moi signe ! :)`,
+    `En attendant vous êtes libres de vous déplacer ici autant que vous le voulez !`,
+    `Enfin... éviter les murs il n'y a pas encore de moteur physique...`,
+    `Mais non vous n'êtes pas un fantome, il n'y a juste pas de moteur physique, je vous l'avais dit :(`,
+  ];
+  //Le font des textes
+  var font_type = "Arial";
+
+  //Dimensions du plan
+  var planeWidth = 10;
+  var planeHeight = 3;
+
+  //Calculate ratio of text width to size of font used
+  var ratio = textWidth / size;
+
+  //set font to be actually used to write text on dynamic texture
+  var font_size = Math.floor(DTWidth / (ratio * 1)); //size of multiplier (1) can be adjusted, increase for smaller text
+  var font = font_size + "px " + font_type;
+
+  //Set width and height for dynamic texture using same multiplier
+  var DTWidth = planeWidth * 60;
+  var DTHeight = planeHeight * 60;
+
+  let dynamicTextureArray = [];
+  let matArray = [];
+  let planeArray = [];
+
+  for (let i = 0; i < textArray.length; i++) {
+    //Create dynamic texture
+    dynamicTextureArray[i] = new BABYLON.DynamicTexture(
+      "DynamicTexture",
+      { width: DTWidth, height: DTHeight },
+      scene
+    );
+    //Check width of text for given font type at any size of font
+    var ctx = dynamicTextureArray[i].getContext();
+    var size = 12; //any value will work
+    var font = size + "px " + font_type;
+    var textWidth = ctx.measureText(textArray[i]).width;
+
+    //Draw text
+    dynamicTextureArray[i].drawText(
+      textArray[i],
+      null,
+      null,
+      font,
+      "#000000",
+      "#ffffff",
+      true
+    );
+    //On créer autant de plan que de text à afficher
+    planeArray[i] = BABYLON.MeshBuilder.CreatePlane(
+      "plane",
+      { width: planeWidth, height: planeHeight },
+      scene
+    );
+    // le premier plan plus bas que les autres
+    if (i === 0) {
+      planeArray[i].position.x = i * 18;
+      planeArray[i].position.y = 5;
+      planeArray[i].rotation.y = degToRad(90);
+    } else {
+      //On choisi l'emplacement en x et y et l'orientation en y des plans à afficher
+      planeArray[i].position.x = i * 18;
+      planeArray[i].position.y = 7;
+      planeArray[i].rotation.y = degToRad(90);
+    }
+
+    //create material
+    matArray[i] = new BABYLON.StandardMaterial("mat", scene);
+    matArray[i].diffuseTexture = dynamicTextureArray[i];
+
+    //apply material
+    planeArray[i].material = matArray[i];
+  }
 };

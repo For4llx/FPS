@@ -17,19 +17,14 @@ Player = function (game, canvas) {
   window.addEventListener(
     "keyup",
     function (evt) {
-      switch (evt.key) {
-        case "z":
-          _this.camera.axisMovement[0] = false;
-          break;
-        case "s":
-          _this.camera.axisMovement[1] = false;
-          break;
-        case "q":
-          _this.camera.axisMovement[2] = false;
-          break;
-        case "d":
-          _this.camera.axisMovement[3] = false;
-          break;
+      if (evt.key === "z" || evt.key === "ArrowUp") {
+        _this.camera.axisMovement[0] = false;
+      } else if (evt.key === "s" || evt.key === "ArrowDown") {
+        _this.camera.axisMovement[1] = false;
+      } else if (evt.key === "q" || evt.key === "ArrowLeft") {
+        _this.camera.axisMovement[2] = false;
+      } else if (evt.key === "d" || evt.key === "ArrowRight") {
+        _this.camera.axisMovement[3] = false;
       }
     },
     false
@@ -39,19 +34,14 @@ Player = function (game, canvas) {
   window.addEventListener(
     "keydown",
     function (evt) {
-      switch (evt.key) {
-        case "z":
-          _this.camera.axisMovement[0] = true;
-          break;
-        case "s":
-          _this.camera.axisMovement[1] = true;
-          break;
-        case "q":
-          _this.camera.axisMovement[2] = true;
-          break;
-        case "d":
-          _this.camera.axisMovement[3] = true;
-          break;
+      if (evt.key === "z" || evt.key === "ArrowUp") {
+        _this.camera.axisMovement[0] = true;
+      } else if (evt.key === "s" || evt.key === "ArrowDown") {
+        _this.camera.axisMovement[1] = true;
+      } else if (evt.key === "q" || evt.key === "ArrowLeft") {
+        _this.camera.axisMovement[2] = true;
+      } else if (evt.key === "d" || evt.key === "ArrowRight") {
+        _this.camera.axisMovement[3] = true;
       }
     },
     false
