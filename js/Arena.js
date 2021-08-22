@@ -84,17 +84,17 @@ Arena = function (game) {
   }
   //Les textes à afficher
   let textArray = [
-    `Oh Bonjour, je m'attendais pas à voir quelqu'un ici !`,
+    `Oh Bonjour, je ne m'attendais pas à voir quelqu'un ici !`,
     `Je me présente moi c'est Roméo et je suis développeur web junior !`,
-    `Je maitrise aussi bien le backend avec Node.js et SQL que le front avec HTML, CSS, SASS et Vuejs`,
-    `Et... comme vous pouvez le voir... en ce moment j'apprends aussi à faire de la 3D pour le web`,
-    `Et cette endroit vous dites ? C'est un projet que j'aimerais terminer ! si j'ai le temps`,
-    `Qu'est ce que je fais en ce moment ? je suis en pleine recherche d'emploi ! Dans Paris et sa périphérie`,
-    `Un poste de FrontEnd serait l'idéal car c'est ma vocation, mais je suis aussi ouvert à faire un peu de BackEnd`,
-    `Alors si vous êtes un recruteur qui passerait par là... faite moi signe ! :)`,
+    `Je maitrise aussi bien le backend avec Node.js et SQL que le frontend avec HTML, CSS, SASS et Vuejs.`,
+    `Et... comme vous pouvez le voir... en ce moment j'apprends aussi à faire de la 3D pour le web.`,
+    `Et cet endroit vous dites ? C'est un projet que j'aimerais terminer ! si j'ai le temps.`,
+    `Qu'est ce que je fais en ce moment ? Je suis en pleine recherche d'emploi ! À Paris et sa périphérie.`,
+    `Un poste de frontend serait l'idéal car c'est ma vocation, mais je suis aussi ouvert à faire du backend.`,
+    `Alors si vous êtes un recruteur qui passerait par là... n'hésitez pas à me faire signe ! :)`,
     `En attendant vous êtes libres de vous déplacer ici autant que vous le voulez !`,
-    `Enfin... éviter les murs il n'y a pas encore de moteur physique...`,
-    `Mais non vous n'êtes pas un fantome, il n'y a juste pas de moteur physique, je vous l'avais dit :(`,
+    `Enfin... éviter les murs, il n'y a pas encore de moteur physique...`,
+    `Oops ! Si vous voyez ce message, c'est que vous avez traversé un mur.`,
   ];
   //Le font des textes
   var font_type = "Arial";
@@ -147,15 +147,23 @@ Arena = function (game) {
       { width: planeWidth, height: planeHeight },
       scene
     );
-    // le premier plan plus bas que les autres
-    if (i === 0) {
+    // On alterne l'emplacement des planes
+    if (i % 2 === 0) {
       planeArray[i].position.x = i * 18;
       planeArray[i].position.y = 5;
-      planeArray[i].rotation.y = degToRad(90);
+      planeArray[i].position.z = 10;
+      planeArray[i].rotation.y = degToRad(45);
     } else {
       //On choisi l'emplacement en x et y et l'orientation en y des plans à afficher
       planeArray[i].position.x = i * 18;
-      planeArray[i].position.y = 7;
+      planeArray[i].position.y = 5;
+      planeArray[i].position.z = -10;
+      planeArray[i].rotation.y = degToRad(135);
+    }
+    // le dernière des planes est plus loin et centré
+    if (textArray.length - 1 === i) {
+      planeArray[i].position.x = i * 18 + 10;
+      planeArray[i].position.z = 0;
       planeArray[i].rotation.y = degToRad(90);
     }
 
