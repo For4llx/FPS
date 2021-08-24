@@ -1,5 +1,5 @@
 Player = function (game, canvas) {
-  // _this est l'accès à la caméraà l'interieur de Player
+  // _this est l'accès à la caméra à l'interieur de Player
   var _this = this;
 
   // Le jeu, chargé dans l'objet Player

@@ -160,18 +160,40 @@ Arena = function (game) {
       planeArray[i].position.z = -10;
       planeArray[i].rotation.y = degToRad(135);
     }
-    // le dernière des planes est plus loin et centré
+    // On
     if (textArray.length - 1 === i) {
-      planeArray[i].position.x = i * 18 + 10;
-      planeArray[i].position.z = 0;
-      planeArray[i].rotation.y = degToRad(90);
+      let hiddenPlane1 = planeArray[i];
+      hiddenPlane1.position = new BABYLON.Vector3(i * 18 + 10, 5, 0);
+      hiddenPlane1.rotation.y = degToRad(90);
+
+      let hiddenPlane2 = planeArray[i].clone("hiddenPlane2");
+      hiddenPlane2.position = new BABYLON.Vector3(0, 5, 70);
+      hiddenPlane2.rotation.y = degToRad(0);
+
+      let hiddenPlane3 = planeArray[i].clone("hiddenPlane3");
+      hiddenPlane3.position = new BABYLON.Vector3(0, 5, -70);
+      hiddenPlane3.rotation.y = degToRad(180);
+
+      let hiddenPlane4 = planeArray[i].clone("hiddenPlane3");
+      hiddenPlane4.position = new BABYLON.Vector3(-(i * 18 + 10), 5, 0);
+      hiddenPlane4.rotation.y = degToRad(270);
+
+      //create material
+      matArray[i] = new BABYLON.StandardMaterial("mat", scene);
+      matArray[i].diffuseTexture = dynamicTextureArray[i];
+
+      //apply material
+      hiddenPlane1.material = matArray[i];
+      hiddenPlane2.material = matArray[i];
+      hiddenPlane3.material = matArray[i];
+      hiddenPlane4.material = matArray[i];
+    } else {
+      //create material
+      matArray[i] = new BABYLON.StandardMaterial("mat", scene);
+      matArray[i].diffuseTexture = dynamicTextureArray[i];
+
+      //apply material
+      planeArray[i].material = matArray[i];
     }
-
-    //create material
-    matArray[i] = new BABYLON.StandardMaterial("mat", scene);
-    matArray[i].diffuseTexture = dynamicTextureArray[i];
-
-    //apply material
-    planeArray[i].material = matArray[i];
   }
 };
